@@ -1,0 +1,43 @@
+DROP WAREHOUSE "COMPUTE_WH";
+
+CREATE WAREHOUSE compute_wh WITH WAREHOUSE_SIZE = 'XSMALL' WAREHOUSE_TYPE = 'STANDARD' AUTO_SUSPEND = 600 AUTO_RESUME = TRUE MIN_CLUSTER_COUNT = 1 MAX_CLUSTER_COUNT = 1 SCALING_POLICY = 'ECONOMY';
+
+DROP DATABASE DATA_DB;
+
+CREATE DATABASE data_db;
+
+USE DATABASE data_db;
+
+alter session set timestamp_type_mapping = timestamp_tz;
+
+create or replace table crypto_quotes
+    (
+        id int not null identity(1,1),
+        symbol string not null,
+        price number(38,15) not null,
+        price_timestamp timestamp not null,
+        price_date date not null,
+        inserted_on_timestampe timestamp not null default current_timestamp()
+    );
+
+create stage crypto_csv_files;
+
+put file:///Repos/github/michael-griehm/snowflake-datawarehouse/quotes-data.csv @crypto_csv_files;
+
+remove @crypto_csv_files/quotes-data.csv;
+
+put file:///Repos/github/michael-griehm/snowflake-datawarehouse/quotes-data*.csv @crypto_csv_files;
+
+list @crypto_csv_files;
+
+use warehouse compute_wh;
+
+copy into crypto_quotes (symbol, price, price_timestamp, price_date)
+from (select F.$1, F.$2, F.$3, F.$4 FROM @crypto_csv_files as F)
+file_format = (type = csv field_delimiter = ',' skip_header = 1)
+pattern = '.*quotes-data.csv.gz';
+
+select * from crypto_quotes where symbol = 'EOS';
+
+CREATE MANAGED ACCOUNT SF_READER_EXAMPLE admin_name='michaelslower', admin_password='<gmf-pw>', type=reader, COMMENT='Example of a third-party reader account';
+
