@@ -29,6 +29,14 @@ Find config file at `~/.snowsql/config`
     accountname = bu64242.central-us.azure
     username = MICHAELSLOWER
     password = <pw>
+    dbname = data_db
+    warehousename = compute_wh
+    schemaname = public
+
+    [options]
+    auto_completion = True
+
+    prompt_format=>>
 
 Once the config file has at least one `[connections.name]` defined, you can connect to Snowflake using the following command:
 

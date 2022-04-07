@@ -12,7 +12,6 @@ alter session set timestamp_type_mapping = timestamp_tz;
 
 create or replace table crypto_quotes
     (
-        id int not null identity(1,1),
         symbol string not null,
         price number(38,15) not null,
         price_timestamp timestamp not null,
@@ -35,6 +34,9 @@ use warehouse compute_wh;
 copy into crypto_quotes (symbol, price, price_timestamp, price_date)
 from (select F.$1, F.$2, F.$3, F.$4 FROM @crypto_csv_files as F)
 file_format = (type = csv field_delimiter = ',' skip_header = 1)
+pattern = '.*quotes-data.csv.gz';
+
+remove @crypto_csv_files
 pattern = '.*quotes-data.csv.gz';
 
 select * from crypto_quotes where symbol = 'EOS';
