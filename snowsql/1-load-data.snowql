@@ -16,7 +16,7 @@ create or replace table crypto_quotes
         price number(38,15) not null,
         price_timestamp timestamp not null,
         price_date date not null,
-        inserted_on_timestampe timestamp not null default current_timestamp()
+        inserted_on_timestamp timestamp not null default current_timestamp()
     );
 
 create stage crypto_csv_files;
