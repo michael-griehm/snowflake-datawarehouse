@@ -1,4 +1,4 @@
-create managed account demo_reader_account admin_name='demo_reader_account_admin', admin_password='S3cureP@ssword', type=reader, COMMENT='Example of a third-party reader account';
+create managed account demo_reader_account admin_name='demo_reader_account_admin', admin_password='', type=reader, COMMENT='Example of a third-party reader account';
 
 //Result Account is EI46283
 

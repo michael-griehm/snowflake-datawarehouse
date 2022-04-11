@@ -2,7 +2,7 @@
 
 use role accountadmin;
 
-create user if not exists dbx_consumer password='S3cureP@ssw0rd';
+create user if not exists dbx_consumer password='';
 
 grant role public to user dbx_consumer;
 
