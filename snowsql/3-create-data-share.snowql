@@ -1,0 +1,13 @@
+create share crypto_quotes_share;
+
+show shares;
+
+grant usage on database data_db to share crypto_quotes_share;
+
+grant usage on schema data_db.public to share crypto_quotes_share;
+
+grant select on table data_db.public.crypto_quotes to share crypto_quotes_share;
+
+show grants to share crypto_quotes_share;
+
+ALTER SHARE "CRYPTO_QUOTES_SHARE" ADD ACCOUNTS = EI46283;

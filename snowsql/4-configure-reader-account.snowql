@@ -1,0 +1,25 @@
+//Log into SnowSQL with Reader Account Admin such as demo_reader_account_admin 
+
+use role accountadmin;
+
+create user if not exists dbx_consumer password='S3cureP@ssw0rd';
+
+grant role public to user dbx_consumer;
+
+create warehouse reader_wh;
+
+create database shared_crypto_quotes from share BU64242.CRYPTO_QUOTES_SHARE;
+
+grant usage on warehouse reader_wh to role public;
+
+grant imported privileges on database shared_crypto_quotes to role public;
+
+grant all on warehouse reader_wh to role sysadmin;
+
+use role public;
+
+use warehouse reader_wh;
+
+use database shared_crypto_quotes;
+
+select * from CRYPTO_QUOTES where Symbol = 'EOS';

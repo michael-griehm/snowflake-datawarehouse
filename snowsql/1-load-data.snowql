@@ -21,11 +21,11 @@ create or replace table crypto_quotes
 
 create stage crypto_csv_files;
 
-put file:///Repos/github/michael-griehm/snowflake-datawarehouse/quotes-data.csv @crypto_csv_files;
+put file:///Repos/github/michael-griehm/snowflake-datawarehouse/example-data/quotes-data.csv @crypto_csv_files;
 
 remove @crypto_csv_files/quotes-data.csv;
 
-put file:///Repos/github/michael-griehm/snowflake-datawarehouse/quotes-data*.csv @crypto_csv_files;
+put file:///Repos/github/michael-griehm/snowflake-datawarehouse/example-data/quotes-data*.csv @crypto_csv_files;
 
 list @crypto_csv_files;
 
@@ -40,6 +40,3 @@ remove @crypto_csv_files
 pattern = '.*quotes-data.csv.gz';
 
 select * from crypto_quotes where symbol = 'EOS';
-
-CREATE MANAGED ACCOUNT SF_READER_EXAMPLE admin_name='michaelslower', admin_password='<gmf-pw>', type=reader, COMMENT='Example of a third-party reader account';
-
