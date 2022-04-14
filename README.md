@@ -38,9 +38,9 @@ Find config file at `~/.snowsql/config`
 
     prompt_format=>>
 
-Once the config file has at least one `[connections.name]` defined, you can connect to Snowflake using the following command:
+Once the config file has at least one `[connections.<name>]` defined, you can connect to Snowflake using the following command:
 
-    snowsql -c name
+    snowsql -c <name>
 
 ## Bulk Loading Data
 

@@ -1,23 +1,6 @@
-DROP WAREHOUSE "COMPUTE_WH";
+use warehouse compute_wh;
 
-CREATE WAREHOUSE compute_wh WITH WAREHOUSE_SIZE = 'XSMALL' WAREHOUSE_TYPE = 'STANDARD' AUTO_SUSPEND = 600 AUTO_RESUME = TRUE MIN_CLUSTER_COUNT = 1 MAX_CLUSTER_COUNT = 1 SCALING_POLICY = 'ECONOMY';
-
-DROP DATABASE DATA_DB;
-
-CREATE DATABASE data_db;
-
-USE DATABASE data_db;
-
-alter session set timestamp_type_mapping = timestamp_tz;
-
-create or replace table crypto_quotes
-    (
-        symbol string not null,
-        price number(38,15) not null,
-        price_timestamp timestamp not null,
-        price_date date not null,
-        inserted_on_timestamp timestamp not null default current_timestamp()
-    );
+use database data_db;
 
 create stage crypto_csv_files;
 

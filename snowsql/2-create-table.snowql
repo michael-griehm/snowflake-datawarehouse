@@ -1,0 +1,15 @@
+use warehouse compute_wh;
+
+use database data_db;
+
+alter session set timestamp_type_mapping = timestamp_tz;
+
+create or replace table crypto_quotes
+    (
+        symbol string not null,
+        price number(38,15) not null,
+        price_timestamp timestamp not null,
+        price_date date not null,
+        inserted_on_timestamp timestamp not null default current_timestamp()
+    );
+
